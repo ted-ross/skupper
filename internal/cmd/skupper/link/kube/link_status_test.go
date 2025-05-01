@@ -92,9 +92,7 @@ func TestCmdLinkStatus_InputToOptions(t *testing.T) {
 		cmd, err := newCmdLinkStatusWithMocks("test", nil, nil, "")
 		assert.Assert(t, err)
 
-		cmd.Flags = &common.CommandLinkStatusFlags{
-			Output: "json",
-		}
+		cmd.Flags = &common.CommandLinkStatusFlags{"json"}
 
 		cmd.InputToOptions()
 

@@ -157,13 +157,8 @@ func TestNonKubeCmdListenerGenerate_InputToOptions(t *testing.T) {
 
 	testTable := []test{
 		{
-			name: "test1",
-			flags: common.CommandListenerGenerateFlags{
-				RoutingKey:     "backend",
-				Host:           "",
-				TlsCredentials: "secret",
-				ListenerType:   "tcp",
-				Output:         "json"},
+			name:                   "test1",
+			flags:                  common.CommandListenerGenerateFlags{"backend", "", "secret", "tcp", "json"},
 			expectedTlsCredentials: "secret",
 			expectedHost:           "0.0.0.0",
 			expectedRoutingKey:     "backend",
@@ -172,15 +167,9 @@ func TestNonKubeCmdListenerGenerate_InputToOptions(t *testing.T) {
 			expectedNamespace:      "default",
 		},
 		{
-			name:      "test2",
-			namespace: "test",
-			flags: common.CommandListenerGenerateFlags{
-				RoutingKey:     "backend",
-				Host:           "1.2.3.4",
-				TlsCredentials: "secret",
-				ListenerType:   "tcp",
-				Output:         "json",
-			},
+			name:                   "test2",
+			namespace:              "test",
+			flags:                  common.CommandListenerGenerateFlags{"backend", "1.2.3.4", "secret", "tcp", "json"},
 			expectedTlsCredentials: "secret",
 			expectedHost:           "1.2.3.4",
 			expectedRoutingKey:     "backend",
@@ -189,14 +178,9 @@ func TestNonKubeCmdListenerGenerate_InputToOptions(t *testing.T) {
 			expectedNamespace:      "test",
 		},
 		{
-			name:      "test3",
-			namespace: "default",
-			flags: common.CommandListenerGenerateFlags{
-				RoutingKey:     "",
-				Host:           "",
-				TlsCredentials: "secret",
-				ListenerType:   "tcp",
-				Output:         "yaml"},
+			name:                   "test3",
+			namespace:              "default",
+			flags:                  common.CommandListenerGenerateFlags{"", "", "secret", "tcp", "yaml"},
 			expectedTlsCredentials: "secret",
 			expectedHost:           "0.0.0.0",
 			expectedRoutingKey:     "my-listener",

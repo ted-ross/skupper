@@ -171,14 +171,8 @@ func TestCmdListenerGenerate_InputToOptions(t *testing.T) {
 
 	testTable := []test{
 		{
-			name: "test1",
-			flags: common.CommandListenerGenerateFlags{
-				RoutingKey:     "backend",
-				Host:           "backend",
-				TlsCredentials: "secret",
-				ListenerType:   "tcp",
-				Output:         "json",
-			},
+			name:                   "test1",
+			flags:                  common.CommandListenerGenerateFlags{"backend", "backend", "secret", "tcp", "json"},
 			expectedTlsCredentials: "secret",
 			expectedHost:           "backend",
 			expectedRoutingKey:     "backend",
@@ -186,14 +180,8 @@ func TestCmdListenerGenerate_InputToOptions(t *testing.T) {
 			expectedOutput:         "json",
 		},
 		{
-			name: "test2",
-			flags: common.CommandListenerGenerateFlags{
-				RoutingKey:     "",
-				Host:           "",
-				TlsCredentials: "secret",
-				ListenerType:   "tcp",
-				Output:         "yaml",
-			},
+			name:                   "test2",
+			flags:                  common.CommandListenerGenerateFlags{"", "", "secret", "tcp", "yaml"},
 			expectedTlsCredentials: "secret",
 			expectedHost:           "test2",
 			expectedRoutingKey:     "test2",

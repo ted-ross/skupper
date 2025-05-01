@@ -62,7 +62,7 @@ func printList(l *list, level int, last map[int]bool) {
 			fmt.Printf("╰─ ")
 		}
 	}
-	fmt.Printf("%s", l.item)
+	fmt.Printf(l.item)
 	if l.details != nil && len(l.details.details) > 0 {
 		itHasChildren := len(l.children) > 0
 		printDetails(l.details.details, level, last, itHasChildren)
