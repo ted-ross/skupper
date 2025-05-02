@@ -64,10 +64,14 @@ type CoreParams struct {
 	ConfigDigest       string
 	RouterImage        skuppertypes.ImageDetails
 	AdaptorImage       skuppertypes.ImageDetails
+	SkupperXImage      skuppertypes.ImageDetails
 	Sizing             sizing.Sizing
 	Labels             map[string]string
 	Annotations        map[string]string
 	EnableAntiAffinity bool
+	ManagementPlane    string
+	SkupperXSiteId     string
+	SkupperXBackbone   bool
 }
 
 func (p *CoreParams) setLabelsAndAnnotations(labelling Labelling, namespace string, name string, kind string) *CoreParams {
@@ -159,9 +163,13 @@ func getCoreParams(site *skupperv2alpha1.Site, group string, size sizing.Sizing)
 		ConfigDigest:       configDigest(&site.Spec),
 		RouterImage:        images.GetRouterImageDetails(),
 		AdaptorImage:       images.GetKubeAdaptorImageDetails(),
+		SkupperXImage:      images.GetSkupperXImageDetails(),
 		Sizing:             size,
 		Labels:             map[string]string{},
 		EnableAntiAffinity: enableAntiAffinity(site),
+		ManagementPlane:    site.Spec.GetManagementPlane(),
+		SkupperXSiteId:     site.Spec.GetSkupperXSiteId(),
+		SkupperXBackbone:   site.Spec.GetSkupperXBackbone(),
 	}
 }
 

@@ -223,6 +223,27 @@ func (s *SiteSpec) GetRouterDataConnectionCount() string {
 	return ""
 }
 
+func (s *SiteSpec) GetManagementPlane() string {
+	if value, ok := s.Settings["management-plane"]; ok {
+		return value
+	}
+	return ""
+}
+
+func (s *SiteSpec) GetSkupperXSiteId() string {
+	if value, ok := s.Settings["skupperx-site-id"]; ok {
+		return value
+	}
+	return ""
+}
+
+func (s *SiteSpec) GetSkupperXBackbone() bool {
+	if value, ok := s.Settings["skupperx-backbone"]; ok {
+		return value == "YES"
+	}
+	return false
+}
+
 func (s *Site) SetConfigured(err error) bool {
 	if s.Status.SetCondition(CONDITION_TYPE_CONFIGURED, ErrorOrReadyCondition(err), s.ObjectMeta.Generation) {
 		s.Status.setReady(s.requiredConditions(), s.ObjectMeta.Generation)

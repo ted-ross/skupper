@@ -12,6 +12,9 @@ const (
 	PrometheusServerImageName string = "prometheus:v2.42.0"
 	OauthProxyImageRegistry   string = "quay.io/openshift"
 	OauthProxyImageName       string = "origin-oauth-proxy:4.14.0"
+
+	SkupperXImageRegistry string = "quay.io/tedlross"
+	SkupperXImageName     string = "skupperx-site-controller:skx-0.1.2"
 )
 
 var (

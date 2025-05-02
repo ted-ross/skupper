@@ -82,6 +82,9 @@ func (s *Site) verifySiteSpec(site *skupperv2alpha1.Site) error {
 	if site.Spec.LinkAccess != "" && site.Spec.LinkAccess != "none" && site.Spec.LinkAccess != "default" && !s.access.IsValidAccessType(site.Spec.LinkAccess) {
 		return fmt.Errorf("Unsupported value for LinkAccess: %s", site.Spec.LinkAccess)
 	}
+	if site.Spec.Settings["management-plane"] != "" && site.Spec.Settings["management-plane"] != "skupperx" {
+		return fmt.Errorf("Unsupported value for management-plane: %s", site.Spec.Settings["management-plane"])
+	}
 	return nil
 }
 

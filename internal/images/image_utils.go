@@ -2,14 +2,15 @@ package images
 
 import (
 	"bytes"
-	"github.com/skupperproject/skupper/api/types"
-	corev1 "k8s.io/api/core/v1"
-	"k8s.io/utils/strings/slices"
 	"log"
 	"os"
 	"os/exec"
 	"strings"
 	"sync"
+
+	"github.com/skupperproject/skupper/api/types"
+	corev1 "k8s.io/api/core/v1"
+	"k8s.io/utils/strings/slices"
 )
 
 type SkupperImage struct {
@@ -31,6 +32,9 @@ const (
 	SkupperImageRegistryEnvKey    string = "SKUPPER_IMAGE_REGISTRY"
 	PrometheusImageRegistryEnvKey string = "PROMETHEUS_IMAGE_REGISTRY"
 	OauthProxyRegistryEnvKey      string = "OAUTH_PROXY_IMAGE_REGISTRY"
+	SkupperXImageRegistryEnvKey   string = "SKUPPERX_CONTROLLER_IMAGE_REGISTRY"
+	SkupperXImageEnvKey           string = "SKUPPERX_CONTROLLER_IMAGE"
+	SkupperXPullPolicyEnvKey      string = "SKUPPERX_CONTROLLER_IMAGE_PULL_POLICY"
 )
 
 func getPullPolicy(key string) string {
@@ -127,6 +131,27 @@ func GetKubeAdaptorImagePullPolicy() string {
 	return getPullPolicy(KubeAdaptorPullPolicyEnvKey)
 }
 
+func GetSkupperXImageDetails() types.ImageDetails {
+	return types.ImageDetails{
+		Name:       GetSkupperXImageName(),
+		PullPolicy: GetSkupperXImagePullPolicy(),
+	}
+}
+
+func GetSkupperXImageName() string {
+	image := os.Getenv(SkupperXImageEnvKey)
+	if image == "" {
+		imageRegistry := GetImageRegistry()
+		return strings.Join([]string{imageRegistry, SkupperXImageName}, "/")
+	} else {
+		return image
+	}
+}
+
+func GetSkupperXImagePullPolicy() string {
+	return getPullPolicy(SkupperXPullPolicyEnvKey)
+}
+
 func GetPrometheusServerImageName() string {
 	image := os.Getenv(PrometheusServerImageEnvKey)
 	if image == "" {
@@ -141,6 +166,14 @@ func GetImageRegistry() string {
 	imageRegistry := os.Getenv(SkupperImageRegistryEnvKey)
 	if imageRegistry == "" {
 		return DefaultImageRegistry
+	}
+	return imageRegistry
+}
+
+func GetSkupperXImageRegistry() string {
+	imageRegistry := os.Getenv(SkupperXImageRegistryEnvKey)
+	if imageRegistry == "" {
+		return SkupperXImageRegistry
 	}
 	return imageRegistry
 }

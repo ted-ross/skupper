@@ -141,6 +141,44 @@ spec:
 {{- if .Sizing.Adaptor.NotEmpty -}}
         {{- template "resources" .Sizing.Adaptor -}}
 {{- end }}
+{{- if .ManagementPlane -}}
+      - image: {{ .SkupperXImage.Name }}
+        imagePullPolicy: {{ .SkupperXImage.PullPolicy }}
+        name: management
+        env:
+        - name: SKUPPERX_SITE_ID
+          value: {{ .SkupperXSiteId }}
+        - name: SKX_BACKBONE
+{{- if .SkupperXBackbone -}}
+          value: "YES"
+{{- else }}
+          value: "NO"
+{{- end }}
+        - name: NODE_ENV
+          value: production
+        ports:
+        - containerPort: 1040
+          name: siteapi
+          protocol: TCP
+        readinessProbe:
+          failureThreshold: 3
+          httpGet:
+            path: /healthz
+            port: 1040
+            scheme: HTTP
+          initialDelaySeconds: 1
+          periodSeconds: 10
+          successThreshold: 1
+          timeoutSeconds: 1
+        resources: {}
+        securityContext:
+          runAsNonRoot: true
+        terminationMessagePath: /dev/termination-log
+        terminationMessagePolicy: File
+        volumeMounts:
+        - mountPath: /etc/skupper-router-certs
+          name: skupper-router-certs
+{{- end }}
       initContainers:
       - env:
         - name: SKUPPER_ROUTER_CONFIG
