@@ -13,7 +13,7 @@ import (
 )
 
 func TestInitialConfig(t *testing.T) {
-	config := InitialConfig("foo", "bar", "1.2.3", true, 10)
+	config := InitialConfig("foo", "bar", "1.2.3", true, 10, "abcde")
 	if config.Metadata.Id != "foo" {
 		t.Errorf("Invalid id, expected 'foo' got %q", config.Metadata.Id)
 	}
@@ -29,7 +29,10 @@ func TestInitialConfig(t *testing.T) {
 	if config.Metadata.HelloMaxAgeSeconds != "10" {
 		t.Errorf("Invalid id, expected %q got %q", "10", config.Metadata.HelloMaxAgeSeconds)
 	}
-	config = InitialConfig("bing", "bong", "3.2.1", false, 5)
+	if config.Metadata.VanId != "abcde" {
+		t.Errorf("Invalid vanId, expected %q got %q", "abcde", config.Metadata.VanId)
+	}
+	config = InitialConfig("bing", "bong", "3.2.1", false, 5, "")
 	if config.Metadata.Id != "bing" {
 		t.Errorf("Invalid id, expected 'bing' got %q", config.Metadata.Id)
 	}
@@ -48,7 +51,7 @@ func TestInitialConfig(t *testing.T) {
 }
 
 func TestAddRemoveListener(t *testing.T) {
-	config := InitialConfig("foo", "bar", "undefined", true, 3)
+	config := InitialConfig("foo", "bar", "undefined", true, 3, "")
 	config.AddListener(Listener{
 		Name: "l1",
 		Port: 5672,
@@ -90,7 +93,7 @@ func TestAddRemoveListener(t *testing.T) {
 }
 
 func TestAddRemoveConnector(t *testing.T) {
-	config := InitialConfig("foo", "bar", "undefined", true, 3)
+	config := InitialConfig("foo", "bar", "undefined", true, 3, "")
 	config.AddConnector(Connector{
 		Name: "c1",
 		Role: RoleInterRouter,
@@ -135,7 +138,7 @@ func TestAddRemoveConnector(t *testing.T) {
 }
 
 func TestAddSslProfile(t *testing.T) {
-	config := InitialConfig("foo", "bar", "undefined", true, 3)
+	config := InitialConfig("foo", "bar", "undefined", true, 3, "")
 	config.AddSslProfile(SslProfile{
 		Name:     "myprofile",
 		CertFile: "/my/certs/cert.pem",
@@ -154,7 +157,7 @@ func TestAddSslProfile(t *testing.T) {
 }
 
 func TestAddAddress(t *testing.T) {
-	config := InitialConfig("foo", "bar", "undefined", true, 3)
+	config := InitialConfig("foo", "bar", "undefined", true, 3, "")
 	config.AddAddress(Address{
 		Prefix:       "foo",
 		Distribution: DistributionMulticast,
@@ -601,7 +604,7 @@ func TestGetSslProfilesDifference(t *testing.T) {
 }
 
 func TestSiteConfig(t *testing.T) {
-	config := InitialConfig("foo", "bar", "1.2.3", true, 10)
+	config := InitialConfig("foo", "bar", "1.2.3", true, 10, "")
 	if config.SiteConfig != nil {
 		t.Error("expected no site configuration by default")
 	}

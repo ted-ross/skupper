@@ -281,7 +281,7 @@ func TestRouterAccessConfig_Apply(t *testing.T) {
 			g.connectors = tt.fields.connectors
 			g.profilePath = ""
 
-			argsConfig := qdr.InitialConfig(id, siteId, version, notEdge, helloAge)
+			argsConfig := qdr.InitialConfig(id, siteId, version, notEdge, helloAge, "")
 			argsConfig.Listeners = tt.args.listeners
 			for _, connector := range tt.args.connectors {
 				argsConfig.Connectors[connector.Name] = connector

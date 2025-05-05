@@ -174,6 +174,10 @@ func (s *Site) GetSiteId() string {
 	return string(s.ObjectMeta.UID)
 }
 
+func (s *Site) GetVanId() string {
+	return s.Spec.GetVanId()
+}
+
 func (s *Site) DefaultIssuer() string {
 	if s.Spec.DefaultIssuer != "" {
 		return s.Spec.DefaultIssuer
@@ -242,6 +246,13 @@ func (s *SiteSpec) GetSkupperXBackbone() bool {
 		return value == "true"
 	}
 	return false
+}
+
+func (s *SiteSpec) GetVanId() string {
+	if value, ok := s.Settings["van-id"]; ok {
+		return value
+	}
+	return ""
 }
 
 func (s *Site) SetConfigured(err error) bool {

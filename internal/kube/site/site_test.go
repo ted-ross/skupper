@@ -4,6 +4,8 @@ import (
 	"context"
 	"testing"
 
+	"log/slog"
+
 	"github.com/skupperproject/skupper/internal/kube/certificates"
 	internalclient "github.com/skupperproject/skupper/internal/kube/client"
 	fakeclient "github.com/skupperproject/skupper/internal/kube/client/fake"
@@ -18,7 +20,6 @@ import (
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	v1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/runtime"
-	"log/slog"
 )
 
 func TestSite_Recover(t *testing.T) {
@@ -1061,7 +1062,7 @@ func newSiteMocks(namespace string, k8sObjects []runtime.Object, skupperObjects 
 }
 
 func createRouterConfigMock(s *Site) error {
-	rc := qdr.InitialConfig(s.name+"-${HOSTNAME}", s.site.GetSiteId(), version.Version, s.isEdge(), 3)
+	rc := qdr.InitialConfig(s.name+"-${HOSTNAME}", s.site.GetSiteId(), version.Version, s.isEdge(), 3, s.site.GetVanId())
 	rc.AddAddress(qdr.Address{
 		Prefix:       "mc",
 		Distribution: "multicast",

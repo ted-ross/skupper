@@ -39,7 +39,7 @@ func TestLink_Apply(t *testing.T) {
 				definition:  nil,
 			},
 			args: args{
-				current: qdr.InitialConfig(id, siteId, version, notEdge, helloAge),
+				current: qdr.InitialConfig(id, siteId, version, notEdge, helloAge, ""),
 			},
 			want: false,
 		},
@@ -57,7 +57,7 @@ func TestLink_Apply(t *testing.T) {
 				},
 			},
 			args: args{
-				current: qdr.InitialConfig(id, siteId, version, notEdge, helloAge),
+				current: qdr.InitialConfig(id, siteId, version, notEdge, helloAge, ""),
 			},
 			want: false,
 		},
@@ -83,7 +83,7 @@ func TestLink_Apply(t *testing.T) {
 				},
 			},
 			args: args{
-				current: qdr.InitialConfig(id, siteId, version, notEdge, helloAge),
+				current: qdr.InitialConfig(id, siteId, version, notEdge, helloAge, ""),
 			},
 			want: true,
 		},
@@ -109,7 +109,7 @@ func TestLink_Apply(t *testing.T) {
 				},
 			},
 			args: args{
-				current: qdr.InitialConfig(id, siteId, version, true, helloAge),
+				current: qdr.InitialConfig(id, siteId, version, true, helloAge, ""),
 			},
 			want: true,
 		},
@@ -295,7 +295,7 @@ func TestLinkMap_Apply(t *testing.T) {
 		},
 	}
 	for _, tt := range tests {
-		routerConfig := qdr.InitialConfig(id, siteId, version, notEdge, helloAge)
+		routerConfig := qdr.InitialConfig(id, siteId, version, notEdge, helloAge, "")
 		linkMap := make(LinkMap)
 		t.Run(tt.name, func(t *testing.T) {
 			for i, link := range tt.links {

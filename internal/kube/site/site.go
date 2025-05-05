@@ -217,7 +217,7 @@ func (s *Site) reconcile(siteDef *skupperv2alpha1.Site, inRecovery bool) error {
 }
 
 func (s *Site) initialRouterConfig() *qdr.RouterConfig {
-	rc := qdr.InitialConfig(s.name+"-${HOSTNAME}", s.site.GetSiteId(), version.Version, s.isEdge(), 3)
+	rc := qdr.InitialConfig(s.name+"-${HOSTNAME}", s.site.GetSiteId(), version.Version, s.isEdge(), 3, s.site.GetVanId())
 	rc.AddAddress(qdr.Address{
 		Prefix:       "mc",
 		Distribution: "multicast",
