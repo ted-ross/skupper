@@ -279,7 +279,7 @@ func (s *SiteState) ToRouterConfig(sslProfileBasePath string, platform string) q
 	if !s.bundle {
 		routerName = fmt.Sprintf("%s-%d", s.Site.Name, time.Now().Unix())
 	}
-	routerConfig := qdr.InitialConfig(routerName, s.SiteId, version.Version, !s.IsInterior(), 3, "")
+	routerConfig := qdr.InitialConfig(routerName, s.SiteId, version.Version, !s.IsInterior(), 3, s.Site.GetVanId())
 	routerConfig.SiteConfig = &qdr.SiteConfig{
 		Name:      routerName,
 		Namespace: s.GetNamespace(),
