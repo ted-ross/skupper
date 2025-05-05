@@ -239,7 +239,7 @@ func (s *SiteSpec) GetSkupperXSiteId() string {
 
 func (s *SiteSpec) GetSkupperXBackbone() bool {
 	if value, ok := s.Settings["skupperx-backbone"]; ok {
-		return value == "YES"
+		return value == "true"
 	}
 	return false
 }

@@ -141,7 +141,7 @@ func GetSkupperXImageDetails() types.ImageDetails {
 func GetSkupperXImageName() string {
 	image := os.Getenv(SkupperXImageEnvKey)
 	if image == "" {
-		imageRegistry := GetImageRegistry()
+		imageRegistry := GetSkupperXImageRegistry()
 		return strings.Join([]string{imageRegistry, SkupperXImageName}, "/")
 	} else {
 		return image

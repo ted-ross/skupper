@@ -141,7 +141,7 @@ spec:
 {{- if .Sizing.Adaptor.NotEmpty -}}
         {{- template "resources" .Sizing.Adaptor -}}
 {{- end }}
-{{- if .ManagementPlane -}}
+{{- if .ManagementPlane }}
       - image: {{ .SkupperXImage.Name }}
         imagePullPolicy: {{ .SkupperXImage.PullPolicy }}
         name: management
@@ -149,7 +149,7 @@ spec:
         - name: SKUPPERX_SITE_ID
           value: {{ .SkupperXSiteId }}
         - name: SKX_BACKBONE
-{{- if .SkupperXBackbone -}}
+{{- if .SkupperXBackbone }}
           value: "YES"
 {{- else }}
           value: "NO"
