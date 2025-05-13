@@ -241,11 +241,11 @@ func (s *SiteSpec) GetSkupperXSiteId() string {
 	return ""
 }
 
-func (s *SiteSpec) GetSkupperXBackbone() bool {
-	if value, ok := s.Settings["skupperx-backbone"]; ok {
-		return value == "true"
+func (s *SiteSpec) GetSkupperXSiteType() string {
+	if value, ok := s.Settings["skupperx-site-type"]; ok {
+		return value
 	}
-	return false
+	return "backbone"
 }
 
 func (s *SiteSpec) GetVanId() string {

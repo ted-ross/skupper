@@ -169,7 +169,7 @@ func getCoreParams(site *skupperv2alpha1.Site, group string, size sizing.Sizing)
 		EnableAntiAffinity: enableAntiAffinity(site),
 		ManagementPlane:    site.Spec.GetManagementPlane(),
 		SkupperXSiteId:     site.Spec.GetSkupperXSiteId(),
-		SkupperXBackbone:   site.Spec.GetSkupperXBackbone(),
+		SkupperXBackbone:   site.Spec.GetSkupperXSiteType() == "backbone",
 	}
 }
 
